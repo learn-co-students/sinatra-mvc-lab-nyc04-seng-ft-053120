@@ -10,7 +10,7 @@ class PigLatinizer
 
     def piglatinize_word(word)
         first_letter = word[0].downcase
-        vowels = %w(a e i o u )
+        vowels = %w(a e i o u)
         if vowels.include?(first_letter)
             "#{word}way"
         else
@@ -25,7 +25,5 @@ class PigLatinizer
             "#{word[consonants.length..-1] + consonants.join + "ay"}"
         end
     end
-   
-
 
 end

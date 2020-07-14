@@ -1,24 +1,26 @@
+
 class PigLatinizer
 
-  def piglatinize(string)
-    string_array = string.split(" ")
-    pig = string_array.map { |word| 
-      letter_arr = word.split('')
-      if word.start_with?(/[bBcCdDfFgGhHjJkKlLmMnNpPqQrRsStTvVwWxXyYzZ]/)
-        until "aAeEiIoOuU".include?(letter_arr[0])
-          letter_arr << letter_arr[0]
-          letter_arr.shift
-        end
-        letter_arr << "ay"
-        letter_arr.join
-      elsif word.start_with?(/[aAeEoOuUiI]/)
-        letter_arr << "way"
-        letter_arr.join
-      end
-      word = letter_arr
-    }
-    pig = pig.map { |word| word.join }.join(" ")
-    pig 
-  end
+    def piglatinize(string)
+        a = string.split(" ")
+        b = a.map {|word| piglatinize_word(word)}
+        b.join(" ")
+    end
 
+    def piglatinize_word(word)
+        first_letter = word[0].downcase
+        if ["a", "e", "i", "o", "u"].include?(first_letter)
+            "#{word}way"
+        else
+            consonants = []
+            consonants << word[0]
+            if ["a", "e", "i", "o", "u"].include?(word[1]) == false
+                consonants << word[1]
+                if ["a", "e", "i", "o", "u"].include?(word[2]) == false
+                    consonants << word[2]
+                end
+            end
+            "#{word[consonants.length..-1] + consonants.join + "ay"}"
+        end
+    end
 end
